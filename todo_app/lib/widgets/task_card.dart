@@ -16,32 +16,25 @@ class TaskCard extends StatelessWidget {
     required this.onChanged,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Checkbox(
-          value: isDone,
-          onChanged: onChanged,
-        ),
+        leading: Checkbox(value: isDone, onChanged: onChanged),
         title: Text(
           task,
           style: TextStyle(
-            decoration:
-                isDone ? TextDecoration.lineThrough : TextDecoration.none,
+            decoration: isDone
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
           ),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: onEdit,
-            ),
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: onDelete,
-            ),
+            IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
+            IconButton(icon: const Icon(Icons.delete), onPressed: onDelete),
           ],
         ),
       ),
