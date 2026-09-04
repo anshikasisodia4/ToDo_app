@@ -4,11 +4,7 @@ class TaskDialog extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback onAdd;
 
-  const TaskDialog({
-    super.key,
-    required this.controller,
-    required this.onAdd,
-  });
+  const TaskDialog({super.key, required this.controller, required this.onAdd});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +27,7 @@ class TaskDialog extends StatelessWidget {
           child: const Text('Cancel'),
         ),
 
-        ElevatedButton(
-          onPressed: onAdd,
-          child: const Text('Add'),
-        ),
+        ElevatedButton(onPressed: onAdd, child: const Text('Add')),
       ],
     );
   }
