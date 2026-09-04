@@ -8,29 +8,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> tasks = [];
+  List<Map<String, dynamic>> tasks = [];
 
   TextEditingController controller = TextEditingController();
 
+  // Add Task
   void addTask() {
-    if (controller.text.isNotEmpty) {
-      setState(() {
-        tasks.add(controller.text);
-      });
+    if (controller.text.isEmpty) return;
 
-      controller.clear();
-      Navigator.pop(context);
-    }
+    setState(() {
+      tasks.add({
+        'name': controller.text,
+        'done': false,
+      });
+    });
+
+    controller.clear();
+    Navigator.pop(context);
   }
 
+  // Delete Task
   void deleteTask(int index) {
     setState(() {
       tasks.removeAt(index);
     });
   }
 
+  // Edit Task
   void editTask(int index) {
-    controller.text = tasks[index];
+    controller.text = tasks[index]['name'];
 
     showDialog(
       context: context,
@@ -39,21 +45,18 @@ class _HomePageState extends State<HomePage> {
           title: const Text('Edit Task'),
           content: TextField(
             controller: controller,
-            decoration: const InputDecoration(
-              hintText: 'Enter task',
-            ),
           ),
           actions: [
             ElevatedButton(
               onPressed: () {
-                if (controller.text.isNotEmpty) {
-                  setState(() {
-                    tasks[index] = controller.text;
-                  });
+                if (controller.text.isEmpty) return;
 
-                  controller.clear();
-                  Navigator.pop(context);
-                }
+                setState(() {
+                  tasks[index]['name'] = controller.text;
+                });
+
+                controller.clear();
+                Navigator.pop(context);
               },
               child: const Text('Update'),
             ),
@@ -63,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Add Task Dialog
   void showAddTask() {
     controller.clear();
 
@@ -103,11 +107,22 @@ class _HomePageState extends State<HomePage> {
               itemCount: tasks.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(tasks[index]),
-
                   leading: Checkbox(
-                    value: false,
-                    onChanged: (value) {},
+                    value: tasks[index]['done'],
+                    onChanged: (value) {
+                      setState(() {
+                        tasks[index]['done'] = value;
+                      });
+                    },
+                  ),
+
+                  title: Text(
+                    tasks[index]['name'],
+                    style: TextStyle(
+                      decoration: tasks[index]['done']
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+                    ),
                   ),
 
                   trailing: Row(
