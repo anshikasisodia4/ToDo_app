@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import '../models/task.dart';
+import '../widgets/task_card.dart';
 import 'add_task_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,17 +12,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> tasks = [];
+  final List<Task> tasks = [];
 
-  void addTask(String task) {
+  void addTask(String title) {
     setState(() {
-      tasks.add(task);
+      tasks.add(
+        Task(title: title),
+      );
     });
   }
 
   void deleteTask(int index) {
     setState(() {
       tasks.removeAt(index);
+    });
+  }
+
+  void toggleTask(int index) {
+    setState(() {
+      tasks[index].isCompleted = !tasks[index].isCompleted;
     });
   }
 
@@ -49,19 +60,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(16),
               itemCount: tasks.length,
               itemBuilder: (context, index) {
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.check_circle_outline,
-                      color: Colors.deepPurple,
-                    ),
-                    title: Text(tasks[index]),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete_outline),
-                      onPressed: () => deleteTask(index),
-                    ),
-                  ),
+                return TaskCard(
+                  task: tasks[index],
+                  onDelete: () => deleteTask(index),
+                  onToggle: () => toggleTask(index),
                 );
               },
             ),
@@ -83,3 +85,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
