@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../models/task.dart';
 import '../widgets/task_card.dart';
@@ -14,10 +13,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Task> tasks = [];
 
-  void addTask(String title) {
+  void addTask(String title, String description) {
     setState(() {
       tasks.add(
-        Task(title: title),
+        Task(
+          title: title,
+          description: description,
+        ),
       );
     });
   }
@@ -69,15 +71,18 @@ class _HomePageState extends State<HomePage> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final task = await Navigator.push(
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const AddTaskPage(),
             ),
           );
 
-          if (task != null && task is String && task.isNotEmpty) {
-            addTask(task);
+          if (result != null && result is Map<String, String>) {
+            addTask(
+              result['title'] ?? '',
+              result['description'] ?? '',
+            );
           }
         },
         child: const Icon(Icons.add),
@@ -85,4 +90,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
