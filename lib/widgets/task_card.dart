@@ -18,6 +18,7 @@ class TaskCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
         leading: Checkbox(
           value: task.isCompleted,
           onChanged: (_) => onToggle(),
@@ -26,11 +27,21 @@ class TaskCard extends StatelessWidget {
           task.title,
           style: TextStyle(
             fontSize: 17,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
             decoration:
                 task.isCompleted ? TextDecoration.lineThrough : null,
           ),
         ),
+        subtitle: task.description.isNotEmpty
+            ? Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: Text(
+                  task.description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            : null,
         trailing: IconButton(
           icon: const Icon(Icons.delete_outline),
           onPressed: onDelete,
