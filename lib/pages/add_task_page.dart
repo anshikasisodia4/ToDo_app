@@ -8,19 +8,25 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
-  final TextEditingController taskController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   @override
   void dispose() {
-    taskController.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
   void saveTask() {
-    final task = taskController.text.trim();
+    final title = titleController.text.trim();
+    final description = descriptionController.text.trim();
 
-    if (task.isNotEmpty) {
-      Navigator.pop(context, task);
+    if (title.isNotEmpty) {
+      Navigator.pop(context, {
+        'title': title,
+        'description': description,
+      });
     }
   }
 
@@ -38,16 +44,31 @@ class _AddTaskPageState extends State<AddTaskPage> {
         child: Column(
           children: [
             TextField(
-              controller: taskController,
+              controller: titleController,
               autofocus: true,
               decoration: const InputDecoration(
-                labelText: 'Task',
+                labelText: 'Task Title',
                 hintText: 'Enter your task',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.task_alt),
               ),
             ),
+
+            const SizedBox(height: 16),
+
+            TextField(
+              controller: descriptionController,
+              maxLines: 4,
+              decoration: const InputDecoration(
+                labelText: 'Description',
+                hintText: 'Enter task details (optional)',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.description_outlined),
+              ),
+            ),
+
             const SizedBox(height: 20),
+
             SizedBox(
               width: double.infinity,
               height: 50,
