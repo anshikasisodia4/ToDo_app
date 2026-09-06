@@ -57,7 +57,6 @@ if (result != null) {
   });
 }
 
-
 }
 
 @override
@@ -71,8 +70,6 @@ fontWeight: FontWeight.bold,
 ),
 ),
 ),
-
-
 
   // View tasks
   body: tasks.isEmpty

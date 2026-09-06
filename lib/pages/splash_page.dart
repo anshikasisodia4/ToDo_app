@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import 'home_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -17,9 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     });
   }
@@ -34,23 +34,17 @@ class _SplashPageState extends State<SplashPage> {
             const Icon(
               Icons.check_circle_outline,
               size: 90,
-              color: Colors.deepPurple,
+              color: Color.fromARGB(255, 109, 154, 189),
             ),
             const SizedBox(height: 20),
             const Text(
               'ToDo App',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Text(
-              'Stay organized, get things done',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
+              'Keep things organized',
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ],
         ),
